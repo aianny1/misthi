@@ -10,7 +10,7 @@ const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', style: ['nor
 
 const fontVars = [display, body, mono, serif].map((f) => f.variable).join(' ');
 
-const shareImage = { url: '/media/portrait-red.webp', width: 518, height: 825, alt: `${profile.name}, ${profile.role} in ${profile.city}` };
+const shareImage = { url: '/media/share.jpg', width: 1200, height: 630, alt: `${profile.name}, ${profile.role} in ${profile.city}` };
 
 export const metadata = {
   metadataBase: new URL(site.url),
