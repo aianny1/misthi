@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+
+# Backup of the original low-resolution clips (not part of the site)
+media-originals/
+
+# Local environment files
+.env*
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
