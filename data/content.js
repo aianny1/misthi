@@ -3,7 +3,7 @@
 
 // Search engines and link previews. Set `url` to the live domain before launch.
 export const site = {
-  url: 'https://misthi-nu.vercel.app/',
+  url: 'https://misthi-nu.vercel.app',
   title: 'Mishthi | UGC Creator & Fashion Influencer in Jaipur, India',
   description:
     'Mishthi is a Jaipur-based UGC creator, model and Instagram influencer making scroll-stopping reels, GRWMs, hauls, reviews and UGC ads for fashion, beauty, skincare and lifestyle brands across India.',

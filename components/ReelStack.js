@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import HeartBubbles from './HeartBubbles';
 import { Icon } from './ui/Vectors';
 
-// A pile of reels that plays like Instagram Stories: progress bars on top, auto-advance,
-// arrows below, and the top card can be dragged or tapped away. Hovering pauses it.
+// A pile of iPhones playing reels like Instagram Stories: progress bars on top, auto-advance,
+// arrows below, and the top phone can be dragged or tapped away. Hovering pauses it.
 export default function ReelStack({ items }) {
   const [order, setOrder] = useState(items.map((_, i) => i));
   const [paused, setPaused] = useState(false);
@@ -53,19 +54,23 @@ export default function ReelStack({ items }) {
                 }}
                 onTap={top ? next : undefined}
               >
-                {top ? (
-                  <video src={item.src} poster={item.poster} muted loop playsInline autoPlay preload="auto" />
-                ) : (
-                  <img src={item.poster} alt="" draggable="false" />
-                )}
-                <span className="stack__label">
-                  <b>{item.type}</b>
-                  {item.brand ? ` · ${item.brand}` : ''}
-                </span>
+                <div className="stack__screen">
+                  {top ? (
+                    <video src={item.src} poster={item.poster} muted loop playsInline autoPlay preload="auto" />
+                  ) : (
+                    <img src={item.poster} alt="" draggable="false" />
+                  )}
+                  <span className="stack__island" aria-hidden="true" />
+                  <span className="stack__label">
+                    <b>{item.type}</b>
+                    {item.brand ? ` · ${item.brand}` : ''}
+                  </span>
+                </div>
               </motion.div>
             );
           })}
         </AnimatePresence>
+        <HeartBubbles />
       </div>
       <div className="stack__controls">
         <button type="button" onClick={prev} aria-label="Previous reel">

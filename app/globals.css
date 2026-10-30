@@ -864,7 +864,7 @@ ol {
 }
 .pop--likes {
   left: -22%;
-  top: 22%;
+  top: 8%;
 }
 .pop--dm {
   right: -16%;
@@ -999,7 +999,7 @@ ol {
   z-index: 3;
 }
 
-/* Reel stack: plays like Instagram Stories */
+/* Reel stack: iPhones playing reels like Instagram Stories. Sizes use cqw so the phone scales as one piece. */
 .stack {
   position: relative;
   display: grid;
@@ -1028,16 +1028,17 @@ ol {
 }
 .stack__cards {
   position: relative;
-  aspect-ratio: 9 / 16;
+  container-type: inline-size;
+  aspect-ratio: 9 / 18.5;
   max-width: 100%;
   touch-action: pan-y;
 }
 .stack__segs {
   position: absolute;
   z-index: 20;
-  top: 12px;
-  left: 12px;
-  right: 12px;
+  top: 15cqw;
+  left: 9cqw;
+  right: 9cqw;
   display: flex;
   gap: 4px;
   transform: rotate(-2deg);
@@ -1074,40 +1075,79 @@ ol {
 .stack__card {
   position: absolute;
   inset: 0;
-  border-radius: 18px;
-  overflow: hidden;
-  background: var(--bg-3);
-  border: 1px solid var(--line-strong);
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 0 4px var(--bg);
+  padding: 3.2cqw;
+  border-radius: 15cqw;
+  background: linear-gradient(145deg, #5a5e68 0%, #24262d 22%, #0b0c11 55%, #2c2f37 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22), 0 30px 60px -20px rgba(0, 0, 0, 0.85);
   cursor: grab;
   user-select: none;
 }
-.stack__card video,
-.stack__card img {
+/* Volume buttons on the left, side button on the right */
+.stack__card::before,
+.stack__card::after {
+  content: '';
+  position: absolute;
+  width: 1cqw;
+  border-radius: 1cqw;
+  background: #3a3d45;
+}
+.stack__card::before {
+  left: -0.8cqw;
+  top: 25cqw;
+  height: 9cqw;
+  box-shadow: 0 13cqw 0 #3a3d45;
+}
+.stack__card::after {
+  right: -0.8cqw;
+  top: 34cqw;
+  height: 22cqw;
+}
+.stack__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12cqw;
+  background: var(--bg-3);
+}
+.stack__screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 55%, transparent), transparent 20%, transparent 60%, color-mix(in srgb, var(--bg) 75%, transparent));
+}
+.stack__screen video,
+.stack__screen img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   pointer-events: none;
 }
-.stack__card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 45%, transparent), transparent 18%, transparent 60%, color-mix(in srgb, var(--bg) 75%, transparent));
-}
-.stack__card img {
+.stack__screen img {
   filter: brightness(0.7);
+}
+/* Dynamic Island */
+.stack__island {
+  position: absolute;
+  z-index: 2;
+  top: 3cqw;
+  left: 50%;
+  width: 29cqw;
+  height: 8cqw;
+  transform: translateX(-50%);
+  border-radius: 8cqw;
+  background: #000;
 }
 .stack__label {
   position: absolute;
   z-index: 1;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-size: 11px;
+  left: 5cqw;
+  right: 5cqw;
+  bottom: 5cqw;
+  padding: 3cqw 5cqw;
+  border-radius: 7cqw;
+  font-size: max(10px, 5.4cqw);
   letter-spacing: 0.04em;
   color: var(--text);
   background: color-mix(in srgb, var(--bg) 55%, transparent);
@@ -1148,6 +1188,82 @@ ol {
   font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--mute);
+}
+
+/* Like button on the phone, with hearts bubbling up like an Instagram Live */
+.hearts {
+  position: absolute;
+  z-index: 25;
+  right: 7cqw;
+  bottom: 24cqw;
+  width: max(34px, 19cqw);
+  height: max(34px, 19cqw);
+}
+.hearts__stream {
+  position: absolute;
+  left: 50%;
+  bottom: 60%;
+  pointer-events: none;
+}
+.hearts__bubble {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  color: var(--text);
+  font-size: calc(max(15px, 9cqw) * var(--size));
+  line-height: 0;
+  opacity: 0;
+  animation: heart-rise var(--time) ease-out forwards;
+}
+.hearts__bubble:nth-child(3n) {
+  color: var(--lime);
+}
+.hearts__bubble:nth-child(3n + 1) {
+  color: var(--cobalt-lit);
+}
+@keyframes heart-rise {
+  0% {
+    transform: translate(var(--x), 0) scale(0.3);
+    opacity: 0;
+  }
+  15% {
+    transform: translate(calc(var(--x) + var(--drift) * 0.3), -28cqw) scale(1);
+    opacity: 1;
+  }
+  55% {
+    transform: translate(calc(var(--x) - var(--drift) * 0.5), -70cqw) scale(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(calc(var(--x) + var(--drift)), -125cqw) scale(0.8);
+    opacity: 0;
+  }
+}
+.hearts__btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  color: var(--text);
+  font-size: max(17px, 10cqw);
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.25s var(--ease), background 0.3s, color 0.3s, border-color 0.3s;
+}
+.hearts__btn:hover {
+  transform: scale(1.08);
+}
+.hearts__btn:active {
+  transform: scale(0.9);
+}
+.hearts__btn.is-liked {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: var(--bg);
 }
 
 /* Marquee: a loud cobalt band */
@@ -2567,8 +2683,11 @@ ol {
     display: none;
   }
   .pop--likes {
-    left: -16%;
-    top: 4%;
+    left: -6%;
+    top: -7%;
+  }
+  .hearts {
+    bottom: 36cqw;
   }
   .pop--dm {
     right: -8%;
@@ -2577,7 +2696,8 @@ ol {
   }
   .pop--shares {
     right: -8%;
-    top: 30%;
+    top: auto;
+    bottom: 22%;
   }
   .pop__text small {
     font-size: 9px;
