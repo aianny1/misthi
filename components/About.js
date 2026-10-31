@@ -8,49 +8,42 @@ import { about, insights, profile } from '@/data/content';
 
 const compact = (n) => `${(n / 1000).toFixed(1)}K`;
 
-// Instagram-style creator card that shares a deck with the portrait.
-function ProfileCard({ active }) {
+// "Creator pass" that shares a deck with the portrait: a full-bleed photo with the key numbers.
+function CreatorPass({ active }) {
   return (
-    <div className="pcard" aria-hidden={!active}>
-      <div className="pcard__head">
-        <img src="/media/portrait-saree-cut.webp" alt="" width="56" height="56" loading="lazy" />
-        <span className="pcard__who">
-          <b>@{profile.instagram}</b>
-          <small>
-            {profile.role} · {profile.city}
-          </small>
-        </span>
+    <div className="pass" aria-hidden={!active}>
+      <img className="pass__photo" src="/media/portrait-red-cut.webp" alt="" width="993" height="1584" loading="lazy" />
+      <span className="pass__status">
+        <i /> Open for collabs
+      </span>
+      <div className="pass__body">
+        <b className="pass__handle">@{profile.instagram}</b>
+        <small className="pass__role">
+          {profile.role} · {profile.city}
+        </small>
+        <dl className="pass__stats">
+          <div>
+            <dd>{compact(insights.profileVisits)}</dd>
+            <dt>profile visits</dt>
+          </div>
+          <div>
+            <dd>{compact(insights.linkTaps)}</dd>
+            <dt>link taps</dt>
+          </div>
+          <div>
+            <dd>{insights.nonFollowers}%</dd>
+            <dt>new reach</dt>
+          </div>
+        </dl>
+        <a className="btn btn--primary btn--block" href={`https://instagram.com/${profile.instagram}`} target="_blank" rel="noreferrer" tabIndex={active ? 0 : -1}>
+          View Instagram
+        </a>
       </div>
-      <p className="pcard__bio">Real content for fashion, beauty and lifestyle brands.</p>
-      <dl className="pcard__stats">
-        <div>
-          <dd>{compact(insights.profileVisits)}</dd>
-          <dt>profile visits</dt>
-        </div>
-        <div>
-          <dd>{compact(insights.linkTaps)}</dd>
-          <dt>link taps</dt>
-        </div>
-      </dl>
-      <ul className="pcard__tags">
-        {about.categories.slice(0, 4).map((c) => (
-          <li key={c}>{c}</li>
-        ))}
-      </ul>
-      <a
-        className="btn btn--primary btn--block"
-        href={`https://instagram.com/${profile.instagram}`}
-        target="_blank"
-        rel="noreferrer"
-        tabIndex={active ? 0 : -1}
-      >
-        View Instagram
-      </a>
     </div>
   );
 }
 
-// Portrait and profile card in a two-card deck. The portrait starts on top; clicking the
+// Portrait and creator pass in a two-card deck. The portrait starts on top; clicking the
 // card behind it (or the button below) swaps them. The portrait tilts toward the cursor.
 function PortraitDeck() {
   const ref = useRef(null);
@@ -76,7 +69,7 @@ function PortraitDeck() {
       <Burst className="tilt__spark" />
       <div className={`deck${showCard ? ' is-card' : ''}`}>
         <div className="deck__slide deck__slide--card" onClick={() => setShowCard(true)}>
-          <ProfileCard active={showCard} />
+          <CreatorPass active={showCard} />
         </div>
         <div
           className="deck__slide deck__slide--photo"
@@ -92,7 +85,7 @@ function PortraitDeck() {
         </div>
       </div>
       <button type="button" className="deck__toggle" onClick={() => setShowCard((s) => !s)} aria-pressed={showCard}>
-        <span aria-hidden="true">↻</span> {showCard ? 'Show photo' : 'View profile card'}
+        <span aria-hidden="true">↻</span> {showCard ? 'Show photo' : 'View creator pass'}
       </button>
     </div>
   );

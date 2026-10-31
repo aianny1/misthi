@@ -982,7 +982,7 @@ ol {
   z-index: 3;
 }
 
-/* Reel stack: iPhones playing reels like Instagram Stories. Sizes use cqw so the phone scales as one piece. */
+/* Reel stack: plays like Instagram Stories */
 .stack {
   position: relative;
   display: grid;
@@ -1012,16 +1012,16 @@ ol {
 .stack__cards {
   position: relative;
   container-type: inline-size;
-  aspect-ratio: 9 / 18.5;
+  aspect-ratio: 9 / 16;
   max-width: 100%;
   touch-action: pan-y;
 }
 .stack__segs {
   position: absolute;
   z-index: 20;
-  top: 15cqw;
-  left: 9cqw;
-  right: 9cqw;
+  top: 12px;
+  left: 12px;
+  right: 12px;
   display: flex;
   gap: 4px;
   transform: rotate(-2deg);
@@ -1058,79 +1058,40 @@ ol {
 .stack__card {
   position: absolute;
   inset: 0;
-  padding: 3.2cqw;
-  border-radius: 15cqw;
-  background: linear-gradient(145deg, #5a5e68 0%, #24262d 22%, #0b0c11 55%, #2c2f37 100%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22), 0 30px 60px -20px rgba(0, 0, 0, 0.85);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg-3);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 0 4px var(--bg);
   cursor: grab;
   user-select: none;
 }
-/* Volume buttons on the left, side button on the right */
-.stack__card::before,
-.stack__card::after {
-  content: '';
-  position: absolute;
-  width: 1cqw;
-  border-radius: 1cqw;
-  background: #3a3d45;
-}
-.stack__card::before {
-  left: -0.8cqw;
-  top: 25cqw;
-  height: 9cqw;
-  box-shadow: 0 13cqw 0 #3a3d45;
-}
-.stack__card::after {
-  right: -0.8cqw;
-  top: 34cqw;
-  height: 22cqw;
-}
-.stack__screen {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 12cqw;
-  background: var(--bg-3);
-}
-.stack__screen::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 55%, transparent), transparent 20%, transparent 60%, color-mix(in srgb, var(--bg) 75%, transparent));
-}
-.stack__screen video,
-.stack__screen img {
+.stack__card video,
+.stack__card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   pointer-events: none;
 }
-.stack__screen img {
-  filter: brightness(0.7);
-}
-/* Dynamic Island */
-.stack__island {
+.stack__card::after {
+  content: '';
   position: absolute;
-  z-index: 2;
-  top: 3cqw;
-  left: 50%;
-  width: 29cqw;
-  height: 8cqw;
-  transform: translateX(-50%);
-  border-radius: 8cqw;
-  background: #000;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 45%, transparent), transparent 18%, transparent 60%, color-mix(in srgb, var(--bg) 75%, transparent));
+}
+.stack__card img {
+  filter: brightness(0.7);
 }
 .stack__label {
   position: absolute;
   z-index: 1;
-  left: 5cqw;
-  right: 5cqw;
-  bottom: 5cqw;
-  padding: 3cqw 5cqw;
-  border-radius: 7cqw;
-  font-size: max(10px, 5.4cqw);
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 11px;
   letter-spacing: 0.04em;
   color: var(--text);
   background: color-mix(in srgb, var(--bg) 55%, transparent);
@@ -1406,94 +1367,106 @@ ol {
   border-color: var(--cobalt);
 }
 
-/* Instagram-style profile card */
-.pcard {
+/* Creator pass: full-bleed photo, numbers on a dark fade */
+.pass {
+  position: relative;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 14px;
-  padding: clamp(18px, 6%, 26px);
+  overflow: hidden;
   border-radius: 28px;
-  background: linear-gradient(160deg, color-mix(in srgb, var(--cobalt) 30%, var(--surface)), var(--surface) 60%);
-  border: 1px solid color-mix(in srgb, var(--cobalt-lit) 40%, transparent);
-  box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--cobalt) 60%, transparent);
+  background: radial-gradient(90% 70% at 70% 30%, var(--cobalt) 0%, var(--cobalt-deep) 50%, var(--bg-2) 100%);
+  border: 1px solid color-mix(in srgb, var(--text) 22%, transparent);
+  box-shadow: 0 40px 80px -36px color-mix(in srgb, var(--cobalt) 75%, transparent);
 }
-.pcard__head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
-.pcard__head img {
-  flex: none;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
+.pass__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 78%;
   object-fit: cover;
-  object-position: 45% 0;
-  background: var(--cobalt-deep);
-  outline: 2px solid var(--cobalt-lit);
-  outline-offset: 2px;
+  object-position: 50% 0;
 }
-.pcard__who {
-  display: grid;
-  min-width: 0;
+.pass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 32%, color-mix(in srgb, var(--bg) 88%, transparent) 56%, var(--bg) 72%);
 }
-.pcard__who b {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: -0.02em;
-}
-.pcard__who small {
-  font-size: 12px;
-  color: var(--mute);
-}
-.pcard__bio {
-  font-size: 16px;
-  line-height: 1.45;
-}
-.pcard__stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 0;
-  padding-block: 16px;
-  border-block: 1px solid var(--line);
-}
-.pcard__stats div {
-  display: grid;
-  gap: 2px;
-}
-.pcard__stats dd {
-  margin: 0;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(26px, 3vw, 36px);
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-.pcard__stats dt {
+.pass__status {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+.pass__status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 8px var(--lime);
+}
+.pass__body {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  gap: 6px;
+  padding: 20px;
+}
+.pass__handle {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.pass__role {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
   color: var(--mute);
 }
-.pcard__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+.pass__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 8px 0 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-strong);
 }
-.pcard__tags li {
-  padding: 5px 11px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
+.pass__stats div {
+  display: grid;
+  gap: 2px;
+}
+.pass__stats dd {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.pass__stats dt {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--mute);
 }
 .tilt__spark {
   position: absolute;
@@ -2796,43 +2769,37 @@ ol {
     top: -7%;
   }
   .hearts {
-    bottom: 36cqw;
+    bottom: 34cqw;
   }
   .tilt {
     --peek: -13%;
     width: min(76%, 420px);
   }
-  .pcard {
-    gap: 8px;
-    padding: 16px;
+  .pass__body {
+    gap: 3px;
+    padding: 14px;
   }
-  .pcard__tags {
-    display: none;
+  .pass__handle {
+    font-size: 20px;
   }
-  .pcard__head img {
-    width: 44px;
-    height: 44px;
+  .pass__role {
+    font-size: 9px;
   }
-  .pcard__who b {
-    font-size: 15px;
+  .pass__stats {
+    margin: 5px 0 7px;
+    padding-top: 8px;
   }
-  .pcard__who small {
-    font-size: 10px;
+  .pass__stats dd {
+    font-size: 17px;
   }
-  .pcard__bio {
-    font-size: 14px;
+  .pass__stats dt {
+    font-size: 7px;
+    letter-spacing: 0.02em;
   }
-  .pcard__stats {
-    padding-block: 10px;
-  }
-  .pcard__stats dt {
-    font-size: 8px;
-    letter-spacing: 0.06em;
-  }
-  .pcard .btn {
-    height: 44px;
+  .pass .btn {
+    height: 40px;
     padding: 0 12px;
-    font-size: 11px;
+    font-size: 10px;
   }
   .pop--dm {
     right: -8%;
