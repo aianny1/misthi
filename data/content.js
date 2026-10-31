@@ -48,6 +48,7 @@ export const about = {
 
 // Videos: put the MP4 + a poster image in /public/media/work and add a line here.
 // For the final site, swap these clips for the original exports from Instagram.
+// Add `url: 'https://www.instagram.com/reel/...'` to a reel so Comment and Share use that exact post.
 export const work = [
   { id: 'skincare', title: '5 simple skincare steps', type: 'Product demo', cat: 'Skincare', brand: 'Minimalist' },
   { id: 'cherry', title: 'Cherry dessert, on my skin', type: 'Review', cat: 'Beauty', brand: 'Wanderlust' },
