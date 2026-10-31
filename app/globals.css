@@ -145,10 +145,6 @@ ol {
 .vec__faint {
   opacity: 0.45;
 }
-.vec__solid {
-  fill: var(--cobalt-lit);
-  stroke: none;
-}
 .vec__dash {
   stroke-dasharray: 2 10;
   stroke-linecap: round;
@@ -205,24 +201,11 @@ ol {
   }
 }
 
-/* Phone playing a reel */
-.phone__heart {
-  fill: var(--cobalt-lit);
-  stroke: none;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: beat 1.6s ease-in-out infinite;
-}
-.phone__progress,
+/* Progress rings and lines that draw themselves */
 .play-ring__progress,
 .chart__line {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-}
-.phone__progress {
-  stroke: var(--text);
-  stroke-width: 2;
-  animation: fill-line 6s linear infinite;
 }
 @keyframes fill-line {
   to {
@@ -1213,12 +1196,13 @@ ol {
   font-size: calc(max(15px, 9cqw) * var(--size));
   line-height: 0;
   opacity: 0;
-  animation: heart-rise var(--time) ease-out forwards;
+  will-change: transform, opacity;
+  animation: heart-rise var(--time) ease-out var(--delay) both;
 }
-.hearts__bubble:nth-child(3n) {
+.hearts__bubble--0 {
   color: var(--lime);
 }
-.hearts__bubble:nth-child(3n + 1) {
+.hearts__bubble--1 {
   color: var(--cobalt-lit);
 }
 @keyframes heart-rise {
@@ -1311,21 +1295,6 @@ ol {
 .about {
   background: var(--bg);
 }
-.about__hello {
-  position: absolute;
-  top: clamp(32px, 5vw, 64px);
-  left: 0;
-  white-space: nowrap;
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: clamp(110px, 18vw, 300px);
-  line-height: 1;
-  letter-spacing: -0.05em;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--line-strong);
-  pointer-events: none;
-  user-select: none;
-}
 .about__grid {
   position: relative;
   display: grid;
@@ -1378,18 +1347,153 @@ ol {
   border-color: var(--cobalt);
 }
 .tilt {
+  --peek: -26%;
   position: relative;
-  perspective: 1000px;
   width: min(100%, 420px);
   justify-self: center;
 }
-.tilt__phone {
+
+/* Two-card deck: the portrait on top, the profile card peeking out behind it */
+.deck {
+  position: relative;
+}
+.deck__slide {
+  transition: transform 0.75s var(--ease), z-index 0s linear 0.28s;
+}
+.deck__slide--photo {
+  position: relative;
+  z-index: 2;
+  perspective: 1000px;
+}
+.deck__slide--card {
   position: absolute;
-  width: 44%;
-  left: -18%;
-  top: 10%;
-  transform: rotate(-8deg);
-  opacity: 0.8;
+  inset: 0;
+  z-index: 1;
+  cursor: pointer;
+  transform: translateX(var(--peek)) rotate(-7deg) scale(0.94);
+}
+.deck.is-card .deck__slide--card {
+  z-index: 2;
+  cursor: default;
+  transform: none;
+}
+.deck.is-card .deck__slide--photo {
+  z-index: 1;
+  cursor: pointer;
+  transform: translateX(calc(var(--peek) * -1)) rotate(6deg) scale(0.94);
+}
+@media (hover: hover) {
+  .deck:not(.is-card) .deck__slide--card:hover {
+    transform: translateX(calc(var(--peek) - 4%)) rotate(-9deg) scale(0.94);
+  }
+}
+.deck__toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 22px auto 0;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.3s, border-color 0.3s;
+}
+.deck__toggle:hover {
+  background: var(--cobalt);
+  border-color: var(--cobalt);
+}
+
+/* Instagram-style profile card */
+.pcard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  padding: clamp(18px, 6%, 26px);
+  border-radius: 28px;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--cobalt) 30%, var(--surface)), var(--surface) 60%);
+  border: 1px solid color-mix(in srgb, var(--cobalt-lit) 40%, transparent);
+  box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--cobalt) 60%, transparent);
+}
+.pcard__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.pcard__head img {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 45% 0;
+  background: var(--cobalt-deep);
+  outline: 2px solid var(--cobalt-lit);
+  outline-offset: 2px;
+}
+.pcard__who {
+  display: grid;
+  min-width: 0;
+}
+.pcard__who b {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+.pcard__who small {
+  font-size: 12px;
+  color: var(--mute);
+}
+.pcard__bio {
+  font-size: 16px;
+  line-height: 1.45;
+}
+.pcard__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0;
+  padding-block: 16px;
+  border-block: 1px solid var(--line);
+}
+.pcard__stats div {
+  display: grid;
+  gap: 2px;
+}
+.pcard__stats dd {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.pcard__stats dt {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.pcard__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pcard__tags li {
+  padding: 5px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .tilt__spark {
   position: absolute;
@@ -2646,6 +2750,11 @@ ol {
 }
 
 /* Tablet */
+@media (max-width: 1240px) {
+  .tilt {
+    --peek: -16%;
+  }
+}
 @media (max-width: 1080px) {
   .nav__links {
     display: none;
@@ -2688,6 +2797,42 @@ ol {
   }
   .hearts {
     bottom: 36cqw;
+  }
+  .tilt {
+    --peek: -13%;
+    width: min(76%, 420px);
+  }
+  .pcard {
+    gap: 8px;
+    padding: 16px;
+  }
+  .pcard__tags {
+    display: none;
+  }
+  .pcard__head img {
+    width: 44px;
+    height: 44px;
+  }
+  .pcard__who b {
+    font-size: 15px;
+  }
+  .pcard__who small {
+    font-size: 10px;
+  }
+  .pcard__bio {
+    font-size: 14px;
+  }
+  .pcard__stats {
+    padding-block: 10px;
+  }
+  .pcard__stats dt {
+    font-size: 8px;
+    letter-spacing: 0.06em;
+  }
+  .pcard .btn {
+    height: 44px;
+    padding: 0 12px;
+    font-size: 11px;
   }
   .pop--dm {
     right: -8%;

@@ -1,8 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-// Creator-world line-art used around the page: a ring light, a phone showing a reel, a play
-// button, a rising analytics chart, a voice waveform, a DM paper plane, sparkles and a camera
+// Creator-world line-art used around the page: a ring light, a play button, a rising analytics chart, a voice waveform, a DM paper plane, sparkles and a camera
 // viewfinder. All decorative (hidden from screen readers); colours come from CSS.
 
 const paths = {
@@ -41,24 +40,6 @@ export function RingLight({ className = '' }) {
           <circle key={i} cx={l.x} cy={l.y} r="3.2" style={{ animationDelay: l.d }} />
         ))}
       </g>
-    </svg>
-  );
-}
-
-// A phone outline playing a reel: notch, caption lines, side actions and a progress bar.
-export function PhoneReel({ className = '' }) {
-  return (
-    <svg className={`vec phone ${className}`} viewBox="0 0 240 480" aria-hidden="true">
-      <rect x="4" y="4" width="232" height="472" rx="38" />
-      <rect x="14" y="14" width="212" height="452" rx="30" className="vec__faint" />
-      <rect x="94" y="22" width="52" height="12" rx="6" className="vec__solid" />
-      {['heart', 'comment', 'send'].map((n, i) => (
-        <path key={n} d={paths[n]} transform={`translate(188 ${238 + i * 46}) scale(1.4)`} className={n === 'heart' ? 'phone__heart' : ''} />
-      ))}
-      <rect x="28" y="392" width="120" height="6" rx="3" className="vec__solid vec__faint" />
-      <rect x="28" y="408" width="82" height="6" rx="3" className="vec__solid vec__faint" />
-      <line x1="28" y1="438" x2="212" y2="438" className="vec__faint" />
-      <line x1="28" y1="438" x2="212" y2="438" pathLength="1" className="phone__progress" />
     </svg>
   );
 }
