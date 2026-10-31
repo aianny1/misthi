@@ -47,15 +47,16 @@ export const about = {
 };
 
 // Videos: put the MP4 + a poster image in /public/media/work and add a line here.
-// For the final site, swap these clips for the original exports from Instagram.
-// Add `url: 'https://www.instagram.com/reel/...'` to a reel so Comment and Share use that exact post.
+// Each clip is the first seconds of the reel at `url`, which Comment and Share open.
 export const work = [
-  { id: 'skincare', title: '5 simple skincare steps', type: 'Product demo', cat: 'Skincare', brand: 'Minimalist' },
-  { id: 'cherry', title: 'Cherry dessert, on my skin', type: 'Review', cat: 'Beauty', brand: 'Wanderlust' },
-  { id: 'daftar', title: 'Daftar fits', type: 'Office-wear haul', cat: 'Fashion' },
-  { id: 'grwm', title: 'GRWM × gossip', type: 'GRWM', cat: 'Lifestyle', brand: 'Urbaneigh' },
-  { id: 'lipbalm', title: 'Hydration, gloss and tint', type: 'Tutorial', cat: 'Beauty' },
-  { id: 'lehenga', title: 'The festive lehenga edit', type: 'Styling', cat: 'Fashion' },
+  { id: 'maggie', title: 'Maggie free bowl', type: 'Unboxing', cat: 'Lifestyle', url: 'https://www.instagram.com/reel/DWJe47qE-HP/' },
+  { id: 'skincare', title: 'Glass skin glow in one step', type: 'Product demo', cat: 'Skincare', brand: 'Nykaa', url: 'https://www.instagram.com/reel/DWNyZ0tkxJh/' },
+  { id: 'cherry', title: 'Cherry dessert, on my skin', type: 'Review', cat: 'Beauty', brand: 'Nykaa Wanderlust', url: 'https://www.instagram.com/reel/DWyOEgBkyv7/' },
+  { id: 'haircare', title: 'Almonds for hair fall?', type: 'Paid ad', cat: 'Haircare', brand: 'Hair & Care', url: 'https://www.instagram.com/reel/DfJdl17TtQ4/' },
+  { id: 'daftar', title: 'Daftar fits', type: 'Office-wear haul', cat: 'Fashion', url: 'https://www.instagram.com/reel/DY7VdLgTISN/' },
+  { id: 'grwm', title: 'GRWM × gossip', type: 'GRWM', cat: 'Lifestyle', brand: 'Urbaneigh', url: 'https://www.instagram.com/reel/Ddor-02TMfB/' },
+  { id: 'lipbalm', title: 'Hydration, gloss and tint', type: 'Tutorial', cat: 'Beauty', brand: 'La Pink', url: 'https://www.instagram.com/reel/DVTdtAZkjPI/' },
+  { id: 'lehenga', title: 'The festive lehenga edit', type: 'Styling', cat: 'Fashion', url: 'https://www.instagram.com/reel/DWZHhMhk_fK/' },
 ].map((w) => ({ ...w, src: `/media/work/${w.id}.mp4`, poster: `/media/work/${w.id}.webp` }));
 
 // "What I make" — each format previews one of the reels above.
