@@ -4,10 +4,12 @@ import { motion } from 'framer-motion';
 
 // Vertical reel card. Desktop: plays on hover. Touch screens: plays while it sits in view.
 // Videos use preload="none", so nothing downloads until a card is actually played.
+// Phones get the small preview so swiping stays smooth; the full reel plays when opened.
 // The poster sits under a cobalt tint that clears once the reel plays.
 export default function VideoCard({ item, index, onOpen, className = '' }) {
   const box = useRef(null);
   const vid = useRef(null);
+  const [src, setSrc] = useState(item.src);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -21,10 +23,11 @@ export default function VideoCard({ item, index, onOpen, className = '' }) {
 
   useEffect(() => {
     if (!window.matchMedia('(hover: none)').matches) return;
+    setSrc(item.preview);
     const io = new IntersectionObserver(([e]) => (e.isIntersecting ? play() : pause()), { threshold: 0.6 });
     io.observe(box.current);
     return () => io.disconnect();
-  }, []);
+  }, [item.preview]);
 
   return (
     <motion.figure
@@ -37,7 +40,7 @@ export default function VideoCard({ item, index, onOpen, className = '' }) {
       <div className="reel__frame">
         <video
           ref={vid}
-          src={item.src}
+          src={src}
           poster={item.poster}
           muted
           loop

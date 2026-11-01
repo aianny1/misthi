@@ -1,12 +1,14 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { useInView } from 'framer-motion';
 import { Icon } from './ui/Vectors';
 import { profile, work } from '@/data/content';
 
 const instagram = `https://instagram.com/${profile.instagram}`;
 
 // One full-height reel: plays while it fills the feed, double-tap likes it.
-function FeedReel({ item, active, root }) {
+// `live` is false once the feed is closed or scrolled off the page, which also stops its sound.
+function FeedReel({ item, active, live, near, muted, root }) {
   const box = useRef(null);
   const vid = useRef(null);
   const [liked, setLiked] = useState(false);
@@ -15,7 +17,7 @@ function FeedReel({ item, active, root }) {
 
   useEffect(() => {
     const video = vid.current;
-    if (!active) {
+    if (!live) {
       video.pause();
       return;
     }
@@ -28,7 +30,7 @@ function FeedReel({ item, active, root }) {
       io.disconnect();
       video.pause();
     };
-  }, [active, root]);
+  }, [live, root]);
 
   const share = async () => {
     try {
@@ -46,7 +48,7 @@ function FeedReel({ item, active, root }) {
 
   return (
     <article className="feed__reel" ref={box} onDoubleClick={() => setLiked(true)}>
-      <video ref={vid} src={item.src} poster={item.poster} muted loop playsInline preload="none" aria-label={item.title} />
+      <video ref={vid} src={item.src} poster={item.poster} muted={muted} loop playsInline preload={near ? 'auto' : 'none'} aria-label={item.title} />
       <div className="feed__actions">
         <button type="button" className={`feed__act${liked ? ' is-liked' : ''}`} onClick={() => setLiked((l) => !l)} aria-pressed={liked} aria-label="Like" tabIndex={tabIndex}>
           <Icon name="heart" />
@@ -71,7 +73,16 @@ function FeedReel({ item, active, root }) {
 // Instagram-style vertical feed of every reel, snapping one reel at a time.
 export default function ReelFeed({ active }) {
   const root = useRef(null);
+  const seen = useInView(root, { amount: 0.3 });
   const [scrolled, setScrolled] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [muted, setMuted] = useState(true);
+
+  const onScroll = (e) => {
+    const el = e.currentTarget;
+    setScrolled(true);
+    setCurrent(Math.round(el.scrollTop / el.clientHeight));
+  };
 
   // A mouse wheel moves exactly one reel; snapping alone would pull small scrolls back.
   // At the first and last reel the wheel is left alone so the page keeps scrolling.
@@ -97,11 +108,20 @@ export default function ReelFeed({ active }) {
     <div className="feed" aria-hidden={!active}>
       <div className="feed__bar">
         <b>Reels</b>
-        <Icon name="play" />
       </div>
-      <div className="feed__scroll" ref={root} data-lenis-prevent onScroll={() => setScrolled(true)}>
-        {work.map((item) => (
-          <FeedReel key={item.id} item={item} active={active} root={root} />
+      <button
+        type="button"
+        className={`feed__sound${muted ? '' : ' is-on'}`}
+        onClick={() => setMuted((m) => !m)}
+        aria-pressed={!muted}
+        aria-label={muted ? 'Turn sound on' : 'Turn sound off'}
+        tabIndex={active ? 0 : -1}
+      >
+        <Icon name={muted ? 'mute' : 'sound'} />
+      </button>
+      <div className="feed__scroll" ref={root} data-lenis-prevent onScroll={onScroll}>
+        {work.map((item, i) => (
+          <FeedReel key={item.id} item={item} active={active} live={active && seen} near={active && Math.abs(i - current) <= 1} muted={muted} root={root} />
         ))}
       </div>
       {!scrolled && <span className="feed__hint">Scroll for more ↓</span>}

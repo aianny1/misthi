@@ -50,8 +50,8 @@ export const about = {
 };
 
 // Videos: put the MP4 + a poster image in /public/media/work and add a line here.
-// Each clip is the first seconds of the reel at `url`, which Comment and Share open.
-// `preview` is a small copy (id-sm.mp4) for the little players in the hero and format list.
+// `src` is the full reel with sound; `url` is the Instagram post Comment and Share open.
+// `preview` is a small silent 12-second copy (id-sm.mp4) for the little players and phone cards.
 export const work = [
   { id: 'maggie', title: 'Maggie free bowl', type: 'Unboxing', cat: 'Lifestyle', url: 'https://www.instagram.com/reel/DWJe47qE-HP/' },
   { id: 'skincare', title: 'Glass skin glow in one step', type: 'Product demo', cat: 'Skincare', brand: 'Nykaa', url: 'https://www.instagram.com/reel/DWNyZ0tkxJh/' },

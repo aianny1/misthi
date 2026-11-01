@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Full-screen reel player with previous / next and keyboard controls.
+// Full-screen reel player with sound, previous / next and keyboard controls.
 export default function Lightbox({ items, index, onClose, onIndex }) {
   const open = index != null;
   const item = open ? items[index] : null;
@@ -49,7 +49,6 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
                 className="lightbox__video"
                 src={item.src}
                 poster={item.poster}
-                muted
                 loop
                 playsInline
                 autoPlay

@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useMotionValueEvent, useSpring } from 'framer-motion';
 import { scrollToId } from './SmoothScroll';
 import { profile } from '@/data/content';
@@ -13,14 +13,24 @@ const links = [
 ];
 
 // Blends against whatever is behind it, hides while scrolling down, returns on scroll up.
+// Stays hidden at the page end and ignores tiny moves, which phones produce when the
+// page bounces or the address bar resizes.
 export default function Nav() {
   const { scrollY, scrollYProgress } = useScroll();
   const [hidden, setHidden] = useState(false);
+  const anchor = useRef(0);
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
   useMotionValueEvent(scrollY, 'change', (y) => {
-    const prev = scrollY.getPrevious() ?? 0;
-    setHidden(y > prev && y > 240);
+    const end = document.documentElement.scrollHeight - window.innerHeight;
+    if (y <= 240 || y >= end - 120) {
+      anchor.current = y;
+      setHidden(y > 240);
+      return;
+    }
+    if (Math.abs(y - anchor.current) < 12) return;
+    setHidden(y > anchor.current);
+    anchor.current = y;
   });
 
   const go = (id) => (e) => {

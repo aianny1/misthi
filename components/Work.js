@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useMotionValueEvent, animate } from 'framer-motion';
 import VideoCard from './VideoCard';
 import Lightbox from './Lightbox';
 import { SectionTitle } from './ui/Reveal';
@@ -8,17 +8,30 @@ import { work } from '@/data/content';
 
 const cats = ['All', ...Array.from(new Set(work.map((w) => w.cat)))];
 
-// Filterable, draggable row of reels. Hover plays, click opens the full-screen player.
+// Filterable row of reels. Desktop drags it, hovering plays and a click opens the player.
+// Touch screens use the browser's own swipe, which is smoother than a dragged transform.
 export default function Work() {
   const [cat, setCat] = useState('All');
   const [open, setOpen] = useState(null);
   const [limit, setLimit] = useState(0);
+  const [touch, setTouch] = useState(false);
   const viewport = useRef(null);
   const track = useRef(null);
   const dragging = useRef(false);
   const x = useMotionValue(0);
   const limitRef = useRef(0);
-  const scrolled = useTransform(x, (v) => (limitRef.current ? v / limitRef.current : 0));
+  const scrolled = useMotionValue(0);
+
+  useMotionValueEvent(x, 'change', (v) => scrolled.set(limitRef.current ? v / limitRef.current : 0));
+
+  const onSwipe = (e) => {
+    const el = e.currentTarget;
+    scrolled.set(el.scrollLeft / Math.max(1, el.scrollWidth - el.clientWidth));
+  };
+
+  useEffect(() => {
+    setTouch(window.matchMedia('(hover: none)').matches);
+  }, []);
 
   const list = useMemo(() => (cat === 'All' ? work : work.filter((w) => w.cat === cat)), [cat]);
 
@@ -42,6 +55,7 @@ export default function Work() {
   const pick = (c) => {
     setCat(c);
     animate(x, 0, { type: 'spring', stiffness: 200, damping: 30 });
+    viewport.current.scrollTo({ left: 0, behavior: 'smooth' });
   };
 
   const close = useCallback(() => setOpen(null), []);
@@ -69,12 +83,12 @@ export default function Work() {
         </div>
       </div>
 
-      <div className="work__viewport" ref={viewport}>
+      <div className={`work__viewport${touch ? ' is-swipe' : ''}`} ref={viewport} onScroll={touch ? onSwipe : undefined}>
         <motion.div
           className="work__track"
           ref={track}
           style={{ x }}
-          drag="x"
+          drag={touch ? false : 'x'}
           dragConstraints={{ left: limit, right: 0 }}
           dragElastic={0.12}
           onDragStart={() => (dragging.current = true)}
