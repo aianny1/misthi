@@ -48,6 +48,7 @@ export const about = {
 
 // Videos: put the MP4 + a poster image in /public/media/work and add a line here.
 // Each clip is the first seconds of the reel at `url`, which Comment and Share open.
+// `preview` is a small copy (id-sm.mp4) for the little players in the hero and format list.
 export const work = [
   { id: 'maggie', title: 'Maggie free bowl', type: 'Unboxing', cat: 'Lifestyle', url: 'https://www.instagram.com/reel/DWJe47qE-HP/' },
   { id: 'skincare', title: 'Glass skin glow in one step', type: 'Product demo', cat: 'Skincare', brand: 'Nykaa', url: 'https://www.instagram.com/reel/DWNyZ0tkxJh/' },
@@ -57,7 +58,7 @@ export const work = [
   { id: 'grwm', title: 'GRWM × gossip', type: 'GRWM', cat: 'Lifestyle', brand: 'Urbaneigh', url: 'https://www.instagram.com/reel/Ddor-02TMfB/' },
   { id: 'lipbalm', title: 'Hydration, gloss and tint', type: 'Tutorial', cat: 'Beauty', brand: 'La Pink', url: 'https://www.instagram.com/reel/DVTdtAZkjPI/' },
   { id: 'lehenga', title: 'The festive lehenga edit', type: 'Styling', cat: 'Fashion', url: 'https://www.instagram.com/reel/DWZHhMhk_fK/' },
-].map((w) => ({ ...w, src: `/media/work/${w.id}.mp4`, poster: `/media/work/${w.id}.webp` }));
+].map((w) => ({ ...w, src: `/media/work/${w.id}.mp4`, preview: `/media/work/${w.id}-sm.mp4`, poster: `/media/work/${w.id}.webp` }));
 
 // "What I make" — each format previews one of the reels above.
 export const formats = [

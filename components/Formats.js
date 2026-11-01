@@ -73,7 +73,7 @@ export default function Formats() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                       >
-                        <video src={clipFor(f.clip).src} poster={clipFor(f.clip).poster} muted loop playsInline autoPlay />
+                        <video src={clipFor(f.clip).preview} poster={clipFor(f.clip).poster} muted loop playsInline autoPlay />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -94,7 +94,7 @@ export default function Formats() {
                 {current && (
                   <motion.video
                     key={current.id}
-                    src={current.src}
+                    src={current.preview}
                     poster={current.poster}
                     muted
                     loop

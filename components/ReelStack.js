@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import HeartBubbles from './HeartBubbles';
 import { Icon } from './ui/Vectors';
 
@@ -9,13 +9,15 @@ import { Icon } from './ui/Vectors';
 export default function ReelStack({ items }) {
   const [order, setOrder] = useState(items.map((_, i) => i));
   const [paused, setPaused] = useState(false);
+  const box = useRef(null);
+  const inView = useInView(box, { margin: '200px' });
   const cur = order[0];
 
   const next = () => setOrder((o) => [...o.slice(1), o[0]]);
   const prev = () => setOrder((o) => [o[o.length - 1], ...o.slice(0, -1)]);
 
   return (
-    <div className={`stack${paused ? ' is-paused' : ''}`} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <div className={`stack${paused ? ' is-paused' : ''}`} ref={box} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <span className="stack__title">
         <Icon name="play" /> Latest reels
       </span>
@@ -54,8 +56,8 @@ export default function ReelStack({ items }) {
                 }}
                 onTap={top ? next : undefined}
               >
-                {top ? (
-                  <video src={item.src} poster={item.poster} muted loop playsInline autoPlay preload="auto" />
+                {top && inView ? (
+                  <video src={item.preview} poster={item.poster} muted loop playsInline autoPlay />
                 ) : (
                   <img src={item.poster} alt="" draggable="false" />
                 )}

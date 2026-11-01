@@ -1,12 +1,20 @@
-import { Syne, Manrope, JetBrains_Mono, Instrument_Serif } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { site, profile, about, faq } from '@/data/content';
 
 // Syne for display, Manrope for reading, JetBrains Mono for labels, Instrument Serif italic for accents.
-const display = Syne({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
-const body = Manrope({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
-const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', style: ['normal', 'italic'], variable: '--font-serif', display: 'swap' });
+// The font files live in app/fonts, so the site needs neither Google nor the internet to build or run.
+const display = localFont({ src: './fonts/syne-latin-wght-normal.woff2', weight: '400 800', variable: '--font-display', display: 'swap' });
+const body = localFont({ src: './fonts/manrope-latin-wght-normal.woff2', weight: '200 800', variable: '--font-body', display: 'swap' });
+const mono = localFont({ src: './fonts/jetbrains-mono-latin-wght-normal.woff2', weight: '100 800', variable: '--font-mono', display: 'swap' });
+const serif = localFont({
+  src: [
+    { path: './fonts/instrument-serif-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/instrument-serif-latin-400-italic.woff2', weight: '400', style: 'italic' },
+  ],
+  variable: '--font-serif',
+  display: 'swap',
+});
 
 const fontVars = [display, body, mono, serif].map((f) => f.variable).join(' ');
 
