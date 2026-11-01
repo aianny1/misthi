@@ -5,10 +5,14 @@ import { Icon } from './ui/Vectors';
 import { profile } from '@/data/content';
 
 // Floating WhatsApp shortcut that appears once the visitor scrolls past the hero.
+// It leaves when the footer arrives, so it never covers the giant name.
 export default function WhatsAppButton() {
   const { scrollY } = useScroll();
   const [show, setShow] = useState(false);
-  useMotionValueEvent(scrollY, 'change', (y) => setShow(y > 500));
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const footer = document.querySelector('.footer');
+    setShow(y > 500 && footer.getBoundingClientRect().top > window.innerHeight);
+  });
 
   const wa = `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent('Hi Mishthi, I would like to discuss a UGC collaboration.')}`;
 

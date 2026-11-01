@@ -2562,6 +2562,7 @@ ol {
 .contact__inner {
   padding-block: clamp(96px, 12vw, 176px) clamp(64px, 8vw, 120px);
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 40px;
   justify-items: start;
 }
@@ -2633,7 +2634,9 @@ ol {
 .contact__cta {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
+  width: 100%;
 }
 .footer {
   position: relative;
@@ -2659,7 +2662,8 @@ ol {
   color: var(--text);
 }
 .footer__credit a {
-  color: var(--text);
+  color: var(--lime);
+  font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -2952,14 +2956,8 @@ ol {
   }
 }
 @media (max-width: 520px) {
-  .footer__giant {
-    font-size: 17vw;
-    padding-bottom: 90px;
-  }
-  /* Plain colour: clipped gradients on moving letters are unreliable on phones; the mask still fades it */
-  .footer__giant span {
-    background: none;
-    color: color-mix(in srgb, var(--text) 22%, transparent);
+  .contact__title {
+    font-size: 12.4vw;
   }
   .nav__cta {
     padding: 0 16px;
