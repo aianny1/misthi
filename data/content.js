@@ -33,6 +33,9 @@ export const profile = {
   instagram: 'mishthi04_',
 };
 
+// Website credit shown in the footer.
+export const credit = { name: 'Evercon Digital', url: 'https://www.instagram.com/evercondigital' };
+
 export const hero = {
   rotating: ['GRWMs', 'hauls', 'honest reviews', 'tutorials', 'unboxings', 'product demos', 'UGC ads'],
 };

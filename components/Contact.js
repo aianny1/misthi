@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { RevealText, Rise } from './ui/Reveal';
 import Magnetic from './ui/Magnetic';
 import { PaperPlane, Burst } from './ui/Vectors';
-import { profile } from '@/data/content';
+import { credit, profile } from '@/data/content';
 
 // Letters that lift and turn lime as the cursor passes over them.
 function HoverWord({ text }) {
@@ -105,6 +105,12 @@ export default function Contact() {
             </span>
             <span>
               {profile.role} · {profile.city}, India
+            </span>
+            <span className="footer__credit">
+              Built by{' '}
+              <a href={credit.url} target="_blank" rel="noreferrer">
+                {credit.name}
+              </a>
             </span>
             <button type="button" className="footer__top" onClick={() => (window.lenis ? window.lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' }))}>
               Back to top ↑

@@ -2658,6 +2658,11 @@ ol {
   text-transform: uppercase;
   color: var(--text);
 }
+.footer__credit a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
 /* Giant name closing the page, fading into the bottom edge over a cobalt glow */
 .footer__giant {
@@ -2808,7 +2813,7 @@ ol {
   }
   .pop--likes {
     left: -6%;
-    top: -7%;
+    top: -18px;
   }
   .hearts {
     bottom: 34cqw;
@@ -2830,14 +2835,13 @@ ol {
     font-size: 12px;
   }
   .pop--dm {
-    right: -8%;
-    top: auto;
-    bottom: 4%;
+    display: none;
   }
   .pop--shares {
-    right: -8%;
-    top: auto;
-    bottom: 22%;
+    right: -6%;
+    top: 0;
+    bottom: auto;
+    margin-top: 104%;
   }
   .pop__text small {
     font-size: 9px;
@@ -2867,13 +2871,33 @@ ol {
   .faq__grid {
     grid-template-columns: 1fr;
   }
+  /* Portrait stands alone with the reels below it. Percent offsets use margins because
+     they follow the width, while the height of this box now includes the reels. */
   .hero__visual {
-    width: min(70%, 360px);
-    margin: 32px 0 48px 18%;
+    width: min(84%, 340px);
+    margin: 48px auto;
+  }
+  .hero__ring {
+    top: 0;
+    width: 120%;
+    margin-top: 2%;
+    transform: translateX(-50%);
+  }
+  .hero__spark {
+    right: -2%;
+    top: 0;
+    bottom: auto;
+    margin-top: 92%;
   }
   .hero__stack {
-    left: -28%;
-    width: 50%;
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: min(66%, 230px);
+    margin: 36px auto 0;
+  }
+  .stack__title {
+    justify-self: center;
   }
   .hero__stats div {
     padding-right: 20px;
@@ -2929,8 +2953,13 @@ ol {
 }
 @media (max-width: 520px) {
   .footer__giant {
-    font-size: 19vw;
+    font-size: 17vw;
     padding-bottom: 90px;
+  }
+  /* Plain colour: clipped gradients on moving letters are unreliable on phones; the mask still fades it */
+  .footer__giant span {
+    background: none;
+    color: color-mix(in srgb, var(--text) 22%, transparent);
   }
   .nav__cta {
     padding: 0 16px;
