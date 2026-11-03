@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring, useVelocity, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useInView, useMotionValue, useSpring, useVelocity, useTransform } from 'framer-motion';
 import { SectionTitle } from './ui/Reveal';
 import { PlayRing } from './ui/Vectors';
 import { formats, work } from '@/data/content';
@@ -14,6 +14,7 @@ export default function Formats() {
   const [active, setActive] = useState(null);
   const [fine, setFine] = useState(false);
   const area = useRef(null);
+  const onScreen = useInView(area, { amount: 0.2 });
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 180, damping: 22, mass: 0.6 });
@@ -30,6 +31,11 @@ export default function Formats() {
     x.set(e.clientX - r.left);
     y.set(e.clientY - r.top);
   };
+
+  // Scrolling the list off screen stops the reel and its voice.
+  useEffect(() => {
+    if (!onScreen) setActive(null);
+  }, [onScreen]);
 
   const current = active != null ? clipFor(formats[active].clip) : null;
   const vid = useRef(null);

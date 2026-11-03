@@ -12,11 +12,13 @@ export default function ReelStack({ items }) {
   const [paused, setPaused] = useState(false);
   const box = useRef(null);
   const inView = useInView(box, { margin: '200px' });
+  const onScreen = useInView(box, { amount: 0.5 });
   const cur = order[0];
   const vid = useRef(null);
   const tapped = useTapped();
   const clip = (item) => (tapped ? item.src : item.preview);
-  useSoundPlay(vid, inView ? clip(items[cur]) : null);
+  // Voice only while the cursor is on the stack and it is on screen.
+  useSoundPlay(vid, inView ? clip(items[cur]) : null, paused && onScreen);
 
   const next = () => setOrder((o) => [...o.slice(1), o[0]]);
   const prev = () => setOrder((o) => [o[o.length - 1], ...o.slice(0, -1)]);
