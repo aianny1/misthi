@@ -928,13 +928,12 @@ ol {
     opacity: 0.6;
   }
 }
+/* The transparent cut-out stands free: the box matches the photo's shape, so nothing is cropped */
 .arch {
   position: relative;
   z-index: 1;
-  aspect-ratio: 518 / 760;
+  aspect-ratio: 800 / 1276;
   max-width: 100%;
-  overflow: hidden;
-  border-radius: 999px 999px 24px 24px;
   transform-origin: bottom;
 }
 .tilt__card::before {
@@ -2705,11 +2704,31 @@ ol {
   text-transform: uppercase;
   color: var(--text);
 }
+/* A light sweeps across the credit every few seconds so it catches the eye */
 .footer__credit a {
-  color: var(--lime);
+  color: transparent;
   font-weight: 700;
   text-decoration: underline;
+  text-decoration-color: var(--lime);
   text-underline-offset: 3px;
+  background: linear-gradient(100deg, var(--lime) 40%, #fff 50%, var(--lime) 60%) 100% 0 / 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--lime) 45%, transparent));
+  animation: credit-shine 3.2s ease-in-out infinite;
+}
+.footer__credit a::before {
+  content: '✦ ';
+  color: var(--lime);
+}
+@keyframes credit-shine {
+  0%,
+  35% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0% 0;
+  }
 }
 
 /* Giant name closing the page, fading into the bottom edge over a cobalt glow */

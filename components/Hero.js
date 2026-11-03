@@ -146,8 +146,8 @@ export default function Hero() {
           <motion.div
             className="arch"
             style={{ y: archY, scale: archScale }}
-            initial={{ clipPath: 'inset(100% 0 0 0 round 999px 999px 24px 24px)' }}
-            animate={{ clipPath: 'inset(0% 0 0 0 round 999px 999px 24px 24px)' }}
+            initial={{ clipPath: 'inset(100% 0 0 0)' }}
+            animate={{ clipPath: 'inset(0% 0 0 0)' }}
             transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1], delay: d - 0.1 }}
           >
             <motion.img

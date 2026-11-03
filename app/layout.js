@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import { site, profile, about, faq } from '@/data/content';
 
@@ -77,6 +78,8 @@ export default function RootLayout({ children }) {
       <body>
         {children}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        {/* Visitor counts in the Vercel dashboard (Analytics tab); it only reports once enabled there */}
+        <Analytics />
       </body>
     </html>
   );
