@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useVelocity, useTra
 import { SectionTitle } from './ui/Reveal';
 import { PlayRing } from './ui/Vectors';
 import { formats, work } from '@/data/content';
+import useSoundPlay, { useTapped } from './useSoundPlay';
 
 const clipFor = (id) => work.find((w) => w.id === id);
 
@@ -31,6 +32,10 @@ export default function Formats() {
   };
 
   const current = active != null ? clipFor(formats[active].clip) : null;
+  const vid = useRef(null);
+  const tapped = useTapped();
+  const clip = (item) => (tapped ? item.src : item.preview);
+  useSoundPlay(vid, current ? clip(current) : null);
 
   return (
     <section className="formats section" id="formats">
@@ -73,7 +78,7 @@ export default function Formats() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                       >
-                        <video src={clipFor(f.clip).preview} poster={clipFor(f.clip).poster} muted loop playsInline autoPlay />
+                        <video ref={vid} src={clip(clipFor(f.clip))} poster={clipFor(f.clip).poster} loop playsInline />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -93,13 +98,12 @@ export default function Formats() {
               <AnimatePresence mode="popLayout">
                 {current && (
                   <motion.video
-                    key={current.id}
-                    src={current.preview}
+                    key={current.id + tapped}
+                    ref={vid}
+                    src={clip(current)}
                     poster={current.poster}
-                    muted
                     loop
                     playsInline
-                    autoPlay
                     initial={{ opacity: 0, scale: 1.15 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}

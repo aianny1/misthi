@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import HeartBubbles from './HeartBubbles';
 import { Icon } from './ui/Vectors';
+import useSoundPlay, { useTapped } from './useSoundPlay';
 
 // A pile of reels that plays like Instagram Stories: progress bars on top, auto-advance,
 // arrows below, and the top card can be dragged or tapped away. Hovering pauses it.
@@ -12,6 +13,10 @@ export default function ReelStack({ items }) {
   const box = useRef(null);
   const inView = useInView(box, { margin: '200px' });
   const cur = order[0];
+  const vid = useRef(null);
+  const tapped = useTapped();
+  const clip = (item) => (tapped ? item.src : item.preview);
+  useSoundPlay(vid, inView ? clip(items[cur]) : null);
 
   const next = () => setOrder((o) => [...o.slice(1), o[0]]);
   const prev = () => setOrder((o) => [o[o.length - 1], ...o.slice(0, -1)]);
@@ -57,7 +62,7 @@ export default function ReelStack({ items }) {
                 onTap={top ? next : undefined}
               >
                 {top && inView ? (
-                  <video src={item.preview} poster={item.poster} muted loop playsInline autoPlay />
+                  <video ref={vid} src={clip(item)} poster={item.poster} loop playsInline />
                 ) : (
                   <img src={item.poster} alt="" draggable="false" />
                 )}
