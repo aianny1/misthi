@@ -53,25 +53,26 @@ export const about = {
 // `src` is the full reel with sound; `url` is the Instagram post Comment and Share open.
 // `preview` is a small silent 12-second copy (id-sm.mp4) for the little players and phone cards.
 export const work = [
-  { id: 'maggie', title: 'Maggie free bowl', type: 'Unboxing', cat: 'Lifestyle', url: 'https://www.instagram.com/reel/DWJe47qE-HP/' },
-  { id: 'skincare', title: 'Glass skin glow in one step', type: 'Product demo', cat: 'Skincare', brand: 'Nykaa', url: 'https://www.instagram.com/reel/DWNyZ0tkxJh/' },
-  { id: 'cherry', title: 'Cherry dessert, on my skin', type: 'Review', cat: 'Beauty', brand: 'Nykaa Wanderlust', url: 'https://www.instagram.com/reel/DWyOEgBkyv7/' },
-  { id: 'haircare', title: 'Almonds for hair fall?', type: 'Paid ad', cat: 'Haircare', brand: 'Hair & Care', url: 'https://www.instagram.com/reel/DfJdl17TtQ4/' },
-  { id: 'daftar', title: 'Daftar fits', type: 'Office-wear haul', cat: 'Fashion', url: 'https://www.instagram.com/reel/DY7VdLgTISN/' },
-  { id: 'grwm', title: 'GRWM × gossip', type: 'GRWM', cat: 'Lifestyle', brand: 'Urbaneigh', url: 'https://www.instagram.com/reel/Ddor-02TMfB/' },
-  { id: 'lipbalm', title: 'Hydration, gloss and tint', type: 'Tutorial', cat: 'Beauty', brand: 'La Pink', url: 'https://www.instagram.com/reel/DVTdtAZkjPI/' },
-  { id: 'lehenga', title: 'The festive lehenga edit', type: 'Styling', cat: 'Fashion', url: 'https://www.instagram.com/reel/DWZHhMhk_fK/' },
+  { id: 'reel7', title: 'My skin diary', type: 'Review', cat: 'Skincare' },
+  { id: 'reel8', title: 'Almonds for hair fall?', type: 'Paid ad', cat: 'Haircare', brand: 'Hair & Care', url: 'https://www.instagram.com/reel/DfJdl17TtQ4/' },
+  { id: 'reel1', title: 'GRWM × gossip', type: 'GRWM', cat: 'Lifestyle', brand: 'Urbaneigh', url: 'https://www.instagram.com/reel/Ddor-02TMfB/' },
+  { id: 'reel2', title: 'Daftar fits', type: 'Office-wear haul', cat: 'Fashion', url: 'https://www.instagram.com/reel/DY7VdLgTISN/' },
+  { id: 'reel9', title: 'I think I’m obsessed', type: 'Product demo', cat: 'Beauty' },
+  { id: 'reel6', title: 'Mom vs me', type: 'Skit', cat: 'Beauty' },
+  { id: 'reel5', title: 'She is narcissistic', type: 'Storytelling', cat: 'Lifestyle' },
+  { id: 'reel4', title: 'Soft golden-hour portraits', type: 'Modelling', cat: 'Fashion' },
+  { id: 'reel3', title: 'The moody edit', type: 'Modelling', cat: 'Fashion' },
 ].map((w) => ({ ...w, src: `/media/work/${w.id}.mp4`, preview: `/media/work/${w.id}-sm.mp4`, poster: `/media/work/${w.id}.webp` }));
 
 // "What I make" — each format previews one of the reels above.
 export const formats = [
-  { name: 'Face-to-camera UGC', note: 'Talking straight to camera, like a friend who has actually used it. The format that builds trust fastest.', clip: 'skincare' },
-  { name: 'GRWM', note: 'Your product inside a real get-ready routine, so it feels lived-in, not staged.', clip: 'grwm' },
-  { name: 'Hauls & try-ons', note: 'Multiple looks, honest reactions and quick cuts that keep people watching to the end.', clip: 'daftar' },
-  { name: 'Product demos', note: 'Textures, swatches and close-ups: the details that turn viewers into buyers.', clip: 'lipbalm' },
-  { name: 'Honest reviews', note: 'First impressions, real results and a clear verdict that people believe.', clip: 'cherry' },
-  { name: 'Styling & lookbooks', note: 'Festive, ethnic and occasion wear, shot like a fashion editorial.', clip: 'lehenga' },
-  { name: 'Voiceover ads', note: 'A scripted story over b-roll, built to run as a Meta or Instagram ad.', clip: 'cherry' },
+  { name: 'Face-to-camera UGC', note: 'Talking straight to camera, like a friend who has actually used it. The format that builds trust fastest.', clip: 'reel6' },
+  { name: 'GRWM', note: 'Your product inside a real get-ready routine, so it feels lived-in, not staged.', clip: 'reel1' },
+  { name: 'Hauls & try-ons', note: 'Multiple looks, honest reactions and quick cuts that keep people watching to the end.', clip: 'reel2' },
+  { name: 'Product demos', note: 'Textures, swatches and close-ups: the details that turn viewers into buyers.', clip: 'reel9' },
+  { name: 'Honest reviews', note: 'First impressions, real results and a clear verdict that people believe.', clip: 'reel7' },
+  { name: 'Styling & lookbooks', note: 'Festive, ethnic and occasion wear, shot like a fashion editorial.', clip: 'reel4' },
+  { name: 'Voiceover ads', note: 'A scripted story over b-roll, built to run as a Meta or Instagram ad.', clip: 'reel5' },
 ];
 
 // Numbers as shown in Mishthi's Instagram Insights screenshots.

@@ -61,7 +61,7 @@ export default function Hero() {
   const archScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
   const copyY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
-  const stackItems = ['lehenga', 'cherry', 'grwm', 'lipbalm'].map((id) => work.find((w) => w.id === id));
+  const stackItems = ['reel4', 'reel7', 'reel1', 'reel9'].map((id) => work.find((w) => w.id === id));
   const stat = (label) => insights.topReel.find((s) => s.label === label).display;
   const likes = stat('Likes');
   const shares = stat('Shares');
