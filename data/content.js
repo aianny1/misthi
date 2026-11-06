@@ -64,15 +64,15 @@ export const work = [
   { id: 'reel11', title: 'Cherry dessert, on my skin', type: 'Review', cat: 'Beauty', brand: 'Nykaa Wanderlust', url: 'https://www.instagram.com/reel/DWyOEgBkyv7/' },
 ].map((w) => ({ ...w, src: `/media/work/${w.id}.mp4`, preview: `/media/work/${w.id}-sm.mp4`, poster: `/media/work/${w.id}.webp` }));
 
-// "What I make" — each format previews one of the reels above.
+// "What I create": the content formats, shown as text with who each one suits best.
 export const formats = [
-  { name: 'Face-to-camera UGC', note: 'Talking straight to camera, like a friend who has actually used it. The format that builds trust fastest.', clip: 'reel6' },
-  { name: 'GRWM', note: 'Your product inside a real get-ready routine, so it feels lived-in, not staged.', clip: 'reel1' },
-  { name: 'Hauls & try-ons', note: 'Multiple looks, honest reactions and quick cuts that keep people watching to the end.', clip: 'reel2' },
-  { name: 'Product demos', note: 'Textures, swatches and close-ups: the details that turn viewers into buyers.', clip: 'reel9' },
-  { name: 'Honest reviews', note: 'First impressions, real results and a clear verdict that people believe.', clip: 'reel7' },
-  { name: 'Styling & lookbooks', note: 'Festive, ethnic and occasion wear, shot like a fashion editorial.', clip: 'reel4' },
-  { name: 'Voiceover ads', note: 'A scripted story over b-roll, built to run as a Meta or Instagram ad.', clip: 'reel11' },
+  { name: 'Face-to-camera UGC', note: 'Talking straight to camera, like a friend who has actually used it. The format that builds trust fastest.', best: 'Skincare, haircare and D2C launches that need trust fast.' },
+  { name: 'GRWM', note: 'Your product inside a real get-ready routine, so it feels lived-in, not staged.', best: 'Makeup, skincare, fashion and accessories used in a daily routine.' },
+  { name: 'Hauls & try-ons', note: 'Multiple looks, honest reactions and quick cuts that keep people watching to the end.', best: 'Fashion, ethnic wear, footwear and festive collections.' },
+  { name: 'Product demos', note: 'Textures, swatches and close-ups: the details that turn viewers into buyers.', best: 'Beauty and skincare products where texture and results sell.' },
+  { name: 'Honest reviews', note: 'First impressions, real results and a clear verdict that people believe.', best: 'New launches and bestsellers with a clear before and after.' },
+  { name: 'Styling & lookbooks', note: 'Festive, ethnic and occasion wear, shot like a fashion editorial.', best: 'Ethnic wear, occasion wear and brand lookbooks.' },
+  { name: 'Voiceover ads', note: 'A scripted story over b-roll, built to run as a Meta or Instagram ad.', best: 'Meta and Instagram ads, website videos and product explainers.' },
 ];
 
 // Numbers as shown in Mishthi's Instagram Insights screenshots.

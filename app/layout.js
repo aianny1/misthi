@@ -1,7 +1,7 @@
 import localFont from 'next/font/local';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
-import { site, profile, about, faq } from '@/data/content';
+import { site, profile, about, faq, formats } from '@/data/content';
 
 // Syne for display, Manrope for reading, JetBrains Mono for labels, Instrument Serif italic for accents.
 // The font files live in app/fonts, so the site needs neither Google nor the internet to build or run.
@@ -64,6 +64,10 @@ const jsonLd = {
       address: { '@type': 'PostalAddress', addressLocality: profile.city, addressRegion: 'Rajasthan', addressCountry: 'IN' },
       sameAs: [`https://instagram.com/${profile.instagram}`],
       knowsAbout: ['UGC', 'Instagram Reels', 'Influencer marketing', ...about.categories],
+      makesOffer: formats.map((f) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: f.name, description: `${f.note} Best for: ${f.best}` },
+      })),
     },
     {
       '@type': 'FAQPage',

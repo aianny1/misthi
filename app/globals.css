@@ -1616,10 +1616,8 @@ ol {
   letter-spacing: 0.1em;
   color: var(--cobalt-lit);
 }
-.format.is-dim {
-  opacity: 0.3;
-}
 .format__name {
+  margin: 0;
   font-family: var(--display);
   font-weight: 700;
   font-size: clamp(28px, 3.8vw, 60px);
@@ -1627,14 +1625,49 @@ ol {
   letter-spacing: -0.04em;
   transition: transform 0.5s var(--ease), color 0.4s;
 }
-.format.is-active .format__name {
-  transform: translateX(20px);
-  color: var(--cobalt-lit);
+.format__text {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
 }
 .format__note {
-  max-width: 36ch;
+  max-width: 40ch;
+  margin: 0;
   color: var(--mute);
-  min-width: 0;
+}
+.format__best {
+  max-width: 40ch;
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+}
+.format__best b {
+  margin-right: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+/* Desktop: the row under the cursor lights up, the others step back */
+@media (hover: hover) {
+  /* on the children: the reveal animation sets the row's own opacity inline */
+  .format > * {
+    transition: opacity 0.4s var(--ease);
+  }
+  .formats__list:hover .format:not(:hover) > * {
+    opacity: 0.3;
+  }
+  .format:hover .format__name {
+    transform: translateX(20px);
+    color: var(--cobalt-lit);
+  }
+  .format:hover .format__arrow {
+    transform: rotate(45deg);
+    background: var(--cobalt);
+    border-color: var(--cobalt);
+  }
 }
 .format__arrow {
   display: grid;
@@ -1645,45 +1678,6 @@ ol {
   border: 1px solid var(--line-strong);
   font-size: 20px;
   transition: transform 0.5s var(--ease), background 0.4s, border-color 0.4s;
-}
-.format.is-active .format__arrow {
-  transform: rotate(45deg);
-  background: var(--cobalt);
-  border-color: var(--cobalt);
-}
-.format__inline {
-  grid-column: 1 / -1;
-  overflow: hidden;
-}
-.format__inline video {
-  width: min(62vw, 260px);
-  aspect-ratio: 9 / 16;
-  object-fit: cover;
-  border-radius: 16px;
-  margin-top: 8px;
-}
-.follow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 220px;
-  aspect-ratio: 9 / 16;
-  margin: -195px 0 0 48px;
-  border-radius: 18px;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 5;
-  background: var(--bg-3);
-  outline: 1px solid var(--cobalt-lit);
-  outline-offset: 6px;
-  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.8);
-}
-.follow video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /* Work */
@@ -2980,18 +2974,17 @@ ol {
     grid-template-columns: 36px 1fr auto;
     gap: 12px 16px;
   }
-  .format__note {
+  .format__text {
     grid-column: 2 / -1;
     grid-row: 2;
+  }
+  .format__note {
     font-size: 15px;
   }
   .format__arrow {
     width: 40px;
     height: 40px;
     font-size: 16px;
-  }
-  .format.is-dim {
-    opacity: 1;
   }
   .process__side,
   .summary {
