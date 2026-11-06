@@ -1046,9 +1046,6 @@ ol {
 .stack__seg.is-on i {
   animation: story 5s linear forwards;
 }
-.stack.is-paused .stack__seg.is-on i {
-  animation-play-state: paused;
-}
 @keyframes story {
   to {
     transform: scaleX(1);

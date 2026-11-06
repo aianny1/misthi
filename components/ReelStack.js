@@ -6,10 +6,11 @@ import { Icon } from './ui/Vectors';
 import useSoundPlay, { useTapped } from './useSoundPlay';
 
 // A pile of reels that plays like Instagram Stories: progress bars on top, auto-advance,
-// arrows below, and the top card can be dragged or tapped away. Hovering pauses it.
+// arrows below, and the top card can be dragged or tapped away. Hovering turns the voice on
+// while the stories keep running.
 export default function ReelStack({ items }) {
   const [order, setOrder] = useState(items.map((_, i) => i));
-  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const box = useRef(null);
   const inView = useInView(box, { margin: '200px' });
   const onScreen = useInView(box, { amount: 0.5 });
@@ -18,13 +19,13 @@ export default function ReelStack({ items }) {
   const tapped = useTapped();
   const clip = (item) => (tapped ? item.src : item.preview);
   // Voice only while the cursor is on the stack and it is on screen.
-  useSoundPlay(vid, inView ? clip(items[cur]) : null, paused && onScreen);
+  useSoundPlay(vid, inView ? clip(items[cur]) : null, hovered && onScreen);
 
   const next = () => setOrder((o) => [...o.slice(1), o[0]]);
   const prev = () => setOrder((o) => [o[o.length - 1], ...o.slice(0, -1)]);
 
   return (
-    <div className={`stack${paused ? ' is-paused' : ''}`} ref={box} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <div className="stack" ref={box} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <span className="stack__title">
         <Icon name="play" /> Latest reels
       </span>

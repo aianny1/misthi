@@ -59,9 +59,9 @@ export const work = [
   { id: 'reel2', title: 'Daftar fits', type: 'Office-wear haul', cat: 'Fashion', url: 'https://www.instagram.com/reel/DY7VdLgTISN/' },
   { id: 'reel9', title: 'I think I’m obsessed', type: 'Product demo', cat: 'Beauty' },
   { id: 'reel6', title: 'Mom vs me', type: 'Skit', cat: 'Beauty' },
-  { id: 'reel5', title: 'She is narcissistic', type: 'Storytelling', cat: 'Lifestyle' },
+  { id: 'reel10', title: 'Glass skin glow in one step', type: 'Product demo', cat: 'Skincare', brand: 'Nykaa', url: 'https://www.instagram.com/reel/DWNyZ0tkxJh/' },
   { id: 'reel4', title: 'Soft golden-hour portraits', type: 'Modelling', cat: 'Fashion' },
-  { id: 'reel3', title: 'The moody edit', type: 'Modelling', cat: 'Fashion' },
+  { id: 'reel11', title: 'Cherry dessert, on my skin', type: 'Review', cat: 'Beauty', brand: 'Nykaa Wanderlust', url: 'https://www.instagram.com/reel/DWyOEgBkyv7/' },
 ].map((w) => ({ ...w, src: `/media/work/${w.id}.mp4`, preview: `/media/work/${w.id}-sm.mp4`, poster: `/media/work/${w.id}.webp` }));
 
 // "What I make" — each format previews one of the reels above.
@@ -72,7 +72,7 @@ export const formats = [
   { name: 'Product demos', note: 'Textures, swatches and close-ups: the details that turn viewers into buyers.', clip: 'reel9' },
   { name: 'Honest reviews', note: 'First impressions, real results and a clear verdict that people believe.', clip: 'reel7' },
   { name: 'Styling & lookbooks', note: 'Festive, ethnic and occasion wear, shot like a fashion editorial.', clip: 'reel4' },
-  { name: 'Voiceover ads', note: 'A scripted story over b-roll, built to run as a Meta or Instagram ad.', clip: 'reel5' },
+  { name: 'Voiceover ads', note: 'A scripted story over b-roll, built to run as a Meta or Instagram ad.', clip: 'reel11' },
 ];
 
 // Numbers as shown in Mishthi's Instagram Insights screenshots.
